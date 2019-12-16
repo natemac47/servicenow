@@ -1,0 +1,109 @@
+var searchSys_id = "3c29786e87133200e0ef0cf888cb0bdf";
+
+
+var y = new GlideRecord('sys_metadata');
+
+
+y.addQuery('sys_id',searchSys_id);
+
+
+y.addActiveQuery();
+
+
+y.query();
+
+
+while(y.next())
+
+
+   {
+
+
+   if(y.sys_id == searchSys_id ) // NEED this double check or else log will spit out alot lot of rubbish
+
+
+   {
+
+
+   gs.print(" ID: " + y.sys_id + " Name: " + y.name + " Class: " + y.sys_class_name);
+
+
+   var foundList = y.sys_class_name;
+
+
+   gs.print(y.getRowCount());
+
+
+   }
+
+
+}
+
+
+var gr = new GlideRecord(y.sys_class_name);
+
+
+gr.query();
+
+
+var found = false;
+
+
+var count = 0;
+
+
+var foundcount = 0;
+
+
+while(gr.next()){
+
+
+   count += 1;
+
+
+   if (gr.sys_id == searchSys_id){
+
+
+   gs.print("**************************** Sys_ID Found");
+
+
+   gs.print("#" + count + "     " + gr.sys_id + "     " + gr.name);
+
+
+   var foundRecord = gr.name;
+
+
+   found = true;
+
+
+   break;
+
+
+   }
+
+
+}
+
+
+if(found == false){
+
+
+   gs.print("No records found with this sys id");
+
+
+}
+
+
+else{
+
+
+   gs.print("**************************** Table and Record");
+
+
+   gs.print("Table:   " + foundList);
+
+
+   gs.print("Record: " + foundRecord);
+
+
+}
