@@ -1,0 +1,15 @@
+    // Initialize Notify
+    var notify = new SNC.Notify();
+    // Get Notify phone number to send the message from
+    var twilio = gs.getProperty('glide.notify.task.phone_number');
+    // Query for Escalatee          
+    var currentEscalatee = new GlideRecord("sys_user");
+    currentEscalatee.get(workflow.scratchpad.currentEscalateeId);
+    workflow.scratchpad.escalateeName = currentEscalatee.phone;
+        var userPhone = currentEscalatee.phone;
+        // Message contents
+        strMessage = current.number + " " + current.severity.getDisplayValue() + " Alert created TEST " + "\n" + "Details:" + current.short_description;
+        // Call Notify API to send the actual text             
+        if (userPhone) {
+            notify.sendSMS(twilio, userPhone, strMessage, current);
+        }
