@@ -1,0 +1,17 @@
+function onChange(control, oldValue, newValue, isLoading) {
+if (isLoading && !g_form.isNewRecord()) { 
+      return;
+   }
+
+	
+		var requestedfor = g_form.getReference('u_requested_for', getInitials);  //Callback function is getInitials this allows the browser to continue to run through the script.  
+  
+  function getInitials(requestedfor) {  
+   if(requestedfor && requestedfor != '')
+            g_form.setValue('location', requestedfor.location);  //set Location same as Requested for's location
+            g_form.setValue('u_department', requestedfor.department); //set Department same as Requested for's department
+            g_form.setValue('u_phone_number', requestedfor.phone);  //set Phone Number same as Requested for's phone (business)
+}
+
+   
+}
